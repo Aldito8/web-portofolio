@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{title}}</title>
+</head>
+
+<body>
+
+    <div class="p-6 bg-gray-100 min-h-screen">
+        <h1 class="text-4xl font-bold mb-4 text-center">PROJECT</h1>
+
+        {{!-- project --}}
+        <section class="p-6">
+            <h2 class="text-2xl font-bold mt-4">Project Table</h2>
+            <div class="flex justify-end">
+                <a href="/project/add" class="bg-green-500 text-white px-2 py-1 m-4 rounded hover:bg-green-600">+Project</a>
+            </div>
+            <table class="min-w-full bg-white border rounded-lg shadow-md">
+                <thead class="bg-gray-200 text-gray-700">
+                    <tr class="border-b border-gray-50">
+                        <th class="px-4 py-2 text-left">ID</th>
+                        <th class="px-4 py-2 text-left">Project Name</th>
+                        <th class="px-4 py-2 text-left">Description</th>
+                        <th class="px-4 py-2 text-left">Technologies</th>
+                        <th class="px-4 py-2 text-left">Git Repository</th>
+                        <th class="px-4 py-2 text-left">Demo</th>
+                        <th class="px-4 py-2 text-left">Image</th>
+                        <th class="px-4 py-2 text-left">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each project}}
+                    <tr class="odd:bg-white even:bg-gray-100">
+                        <td class="px-4 py-2 align-top">{{this.id}}</td>
+                        <td class="px-4 py-2 align-top">{{this.nameproject}}</td>
+                        <td class="px-4 py-2 align-top max-w-md">{{this.description}}</td>
+                        <td class="px-4 py-2 align-top">
+                            <ul class="list-disc list-outside space-y-1">
+                                {{#each this.technology}}
+                                <li>{{this}}</li>
+                                {{/each}}
+                            </ul>
+                        </td>
+                        <td class="px-4 py-2 align-top">
+                            {{#if this.gitrepo}}
+                            <a href="{{this.repo}}" class="text-blue-600">Repository</a>
+                            {{else}}
+                            N/A
+                            {{/if}}
+                        </td>
+                        <td class="px-4 py-2 align-top">
+                            {{#if this.demo}}
+                            <a href="{{this.demo}}" class="text-blue-600">Demo</a>
+                            {{else}}
+                            N/A
+                            {{/if}}
+                        </td>
+                        <td class="px-4 py-2 align-top">
+                            <img src="../../assets/uploads/{{this.pic}}" alt="" class="h-10 object-cover rounded">
+                        </td>
+                        <td class="px-4 py-2 align-top">
+                            <a href="/project/edit/{{this.id}}"
+                                class="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600">Edit</a>
+                            <form method="POST" action="/project/delete/{{this.id}}"
+                                onsubmit="return confirm('Yakin ingin menghapus data ini?');" style="display: inline;">
+                                <button type="submit" class="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600 ml-2">Hapus</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </section>
+
+    </div>
+</body>
+
+</html>

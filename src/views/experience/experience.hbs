@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{title}}</title>
+</head>
+
+<body>
+
+    <div class="p-6 bg-gray-100 min-h-screen">
+        <h1 class="text-4xl font-bold mb-4 text-center">EXPERIENCE</h1>
+
+        {{!-- experience --}}
+        <section class="p-6">
+            <div class="flex justify-end">
+                <a href="/experience/add"
+                    class="bg-green-500 text-white px-2 py-1 m-4 rounded hover:bg-green-600">+Experience</a>
+            </div>
+            <table class="min-w-full bg-white border rounded-lg shadow-md">
+                <thead class="bg-gray-200 text-gray-700">
+                    <tr class="border-b border-gray-300">
+                        <th class="px-4 py-2 text-left">ID</th>
+                        <th class="px-4 py-2 text-left">Position</th>
+                        <th class="px-4 py-2 text-left">Company</th>
+                        <th class="px-4 py-2 text-left">Activity</th>
+                        <th class="px-4 py-2 text-left">Tech</th>
+                        <th class="px-4 py-2 text-left">Start</th>
+                        <th class="px-4 py-2 text-left">End</th>
+                        <th class="px-4 py-2 text-left">Logo</th>
+                        <th class="px-4 py-2 text-left">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each experience}}
+                    <tr class="odd:bg-white even:bg-gray-50">
+                        <td class="px-4 py-2 align-top">{{this.id}}</td>
+                        <td class="px-4 py-2 align-top">{{this.namejob}}</td>
+                        <td class="px-4 py-2 align-top">{{this.company}}</td>
+                        <td class="px-4 py-2 align-top max-w-md">
+                            <ul class="list-disc list-outside space-y-1">
+                                {{#each this.activity}}
+                                <li>{{this}}</li>
+                                {{/each}}
+                            </ul>
+                        </td>
+                        <td class="px-4 py-2 align-top">
+                            <ul class="list-disc list-outside space-y-1">
+                                {{#each this.technology}}
+                                <li>{{this}}</li>
+                                {{/each}}
+                            </ul>
+                        </td>
+                        <td class="px-4 py-2 align-top">{{this.datestart}}</td>
+                        <td class="px-4 py-2 align-top">{{this.dateend}}</td>
+                        <td class="px-4 py-2 align-top">
+                            <img src="../../assets/uploads/{{this.logo}}" alt="" class="h-10 object-cover rounded">
+                        </td>
+                        <td class="px-4 py-2 align-top">
+                            <a href="/experience/edit/{{this.id}}"
+                                class="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600">Edit</a>
+                            <form method="POST" action="/experience/delete/{{this.id}}"
+                                onsubmit="return confirm('Yakin ingin menghapus data ini?');" style="display: inline;">
+                                <button type="submit" class="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600 ml-2">Hapus</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </section>
+
+    </div>
+</body>
+</html>

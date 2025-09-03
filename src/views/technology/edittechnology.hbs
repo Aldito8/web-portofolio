@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" class="overflow-y-scroll">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{title}}</title>
+</head>
+
+<body>
+    <div class="max-w-3xl mx-auto my-6 p-6 bg-white rounded-2xl shadow-md">
+        <h2 class="text-2xl font-bold mb-6">{{title}}</h2>
+
+        <form action="/technology/edit/{{data.id}}" method="POST" enctype="multipart/form-data" class="space-y-4">
+
+            <!-- ID -->
+            <div>
+                <label class="block text-sm font-medium text-gray-700">ID</label>
+                <input type="text" name="id" value="{{data.id}}" readonly
+                    class="mt-1 block w-full border border-gray-300 rounded-md p-2 bg-gray-100 text-gray-600 cursor-not-allowed" />
+            </div>
+
+            <!-- Name -->
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Technology Name</label>
+                <input type="text" name="nametech" value="{{data.nametech}}"
+                    class="mt-1 block w-full border border-gray-300 rounded-md p-2" />
+            </div>
+
+            <!-- Logo -->
+            <div>
+                <img src="../../assets/uploads/{{data.icon}}" alt="">
+                <label class="block text-sm font-medium text-gray-700">Logo</label>
+                <input type="file" name="icon" value="{{data.icon}}" accept="image/*"
+                    class="mt-1 block w-full border border-gray-300 rounded-md p-2" />
+            </div>
+
+            <!-- Actions -->
+            <div class="flex justify-end space-x-4 mt-6">
+                <a href="/technology" class="px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300">Batal</a>
+                <button type="submit"
+                    class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">Simpan</button>
+            </div>
+        </form>
+    </div>
+
+</body>
+
+</html>

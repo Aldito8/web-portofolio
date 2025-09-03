@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en" class="overflow-y-scroll">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{title}}</title>
+</head>
+
+<body>
+    <div class="max-w-3xl mx-auto my-6 p-6 bg-white rounded-2xl shadow-md">
+        <h2 class="text-2xl font-bold mb-6">{{title}}</h2>
+
+        <form id="experience-form" action="/project/edit/{{data.id}}" method="POST" enctype="multipart/form-data" class="space-y-4">
+
+            <!-- ID -->
+            <div>
+                <label class="block text-sm font-medium text-gray-700">ID</label>
+                <input type="text" name="id" value="{{data.id}}" readonly
+                    class="mt-1 block w-full border border-gray-300 rounded-md p-2 bg-gray-100 text-gray-600 cursor-not-allowed" />
+            </div>
+
+            <!-- Job -->
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Project Name</label>
+                <input type="text" name="nameproject" value="{{data.nameproject}}"
+                    class="mt-1 block w-full border border-gray-300 rounded-md p-2" />
+            </div>
+
+            <!-- Description -->
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Description</label>
+                <input type="text" name="description" value="{{data.description}}"
+                    class="mt-1 block w-full border border-gray-300 rounded-md p-2" />
+            </div>
+
+            <!-- Technologies -->
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Technologies</label>
+                <div id="tech-list" class="space-y-2 mt-2">
+                    {{#each data.technology}}
+                    <div class="flex items-center">
+                        <input type="text" name="technology" value="{{this}}"
+                            class="flex-1 border border-gray-300 rounded-md p-2" />
+                        <button type="button" onclick="deleteField(this)"
+                            class="ml-2 px-3 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition"><i
+                                class="fa-solid fa-trash"></i></button>
+                    </div>
+                    {{/each}}
+                </div>
+                <button type="button" onclick="addTech()" class="mt-2 text-blue-600 hover:underline">+ Tambah
+                    Tech</button>
+            </div>
+
+
+
+            <!-- Picture -->
+            <div><img src="../../assets/uploads/{{data.pic}}" alt="">
+                <label class="block text-sm font-medium text-gray-700">Image</label>
+                <input type="file" name="pic" accept="image/*" class="mt-1 block w-full border border-gray-300 rounded-md p-2" />
+            </div>
+
+            <!-- Actions -->
+            <div class="flex justify-end space-x-4 mt-6">
+                <a href="/experience" class="px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300">Batal</a>
+                <button type="submit"
+                    class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">Simpan</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        function addActivity() {
+            const container = document.getElementById("activity-list");
+            const wrapper = document.createElement("div");
+            wrapper.className = "flex items-center";
+            wrapper.innerHTML = `
+            <input type="text" name="activity" placeholder="Enter activity"
+                class="flex-1 border border-gray-300 rounded-md p-2" />
+            <button type="button" onclick="deleteField(this)"
+                class="ml-2 px-3 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition"><i class="fa-solid fa-trash"></i></button>`;
+            container.appendChild(wrapper);
+        }
+
+        function addTech() {
+            const container = document.getElementById("tech-list");
+            const wrapper = document.createElement("div");
+            wrapper.className = "flex items-center";
+            wrapper.innerHTML = `
+            <input type="text" name="technology" placeholder="Enter technology"
+                class="flex-1 border border-gray-300 rounded-md p-2" />
+            <button type="button" onclick="deleteField(this)"
+                class="ml-2 px-3 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition"><i class="fa-solid fa-trash"></i></button>`;
+            container.appendChild(wrapper);
+        }
+
+        function deleteField(button) {
+            button.parentElement.remove();
+        }
+
+        document.getElementById("experience-form").addEventListener("submit", function (e) {
+            const activities = document.querySelectorAll("#activity-list input[name='activity']");
+            activities.forEach(input => {
+                if (!input.value.trim()) {
+                    input.parentElement.remove();
+                }
+            });
+
+            const technologies = document.querySelectorAll("#tech-list input[name='technology']");
+            technologies.forEach(input => {
+                if (!input.value.trim()) {
+                    input.parentElement.remove();
+                }
+            });
+        });
+
+    </script>
+
+</body>
+
+</html>
